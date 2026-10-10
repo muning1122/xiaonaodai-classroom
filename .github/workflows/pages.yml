@@ -1,0 +1,28 @@
+name: 发布正式网页课堂
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 读取已核验的静态课件
+        uses: actions/checkout@v6
+      - name: 配置网页发布
+        uses: actions/configure-pages@v5
+      - name: 上传静态课堂
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: public
+      - name: 发布网页课堂
+        id: deployment
+        uses: actions/deploy-pages@v4
