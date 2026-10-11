@@ -22,7 +22,7 @@ jobs:
       - name: 上传静态课堂
         uses: actions/upload-pages-artifact@v4
         with:
-          path: public
+          path: public-v10
       - name: 发布网页课堂
         id: deployment
         uses: actions/deploy-pages@v4
